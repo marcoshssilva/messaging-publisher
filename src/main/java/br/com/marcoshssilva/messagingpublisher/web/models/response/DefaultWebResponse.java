@@ -7,18 +7,18 @@ import java.util.Objects;
 
 public class DefaultWebResponse {
     private String message;
-    private String status;
+    private TypeDefaultWebResponseEnum status;
 
     @JsonFormat(pattern = "YYYY-MM-dd HH:mm:ssZ")
     private Date date;
 
-    public DefaultWebResponse(String message, String status) {
+    public DefaultWebResponse(String message, TypeDefaultWebResponseEnum status) {
         this.message = message;
         this.status = status;
         this.date = new Date();
     }
 
-    public DefaultWebResponse(String message, String status, Date date) {
+    public DefaultWebResponse(String message, TypeDefaultWebResponseEnum status, Date date) {
         this.message = message;
         this.status = status;
         this.date = date;
@@ -32,11 +32,11 @@ public class DefaultWebResponse {
         this.message = message;
     }
 
-    public String getStatus() {
+    public TypeDefaultWebResponseEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TypeDefaultWebResponseEnum status) {
         this.status = status;
     }
 

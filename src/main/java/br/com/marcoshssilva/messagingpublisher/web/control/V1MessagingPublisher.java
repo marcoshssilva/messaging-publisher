@@ -3,6 +3,7 @@ package br.com.marcoshssilva.messagingpublisher.web.control;
 import br.com.marcoshssilva.messagingpublisher.web.models.payload.V1PublishDefaultExchangeDataModel;
 import br.com.marcoshssilva.messagingpublisher.web.models.payload.V1PublishExchangeDataModel;
 import br.com.marcoshssilva.messagingpublisher.web.models.response.DefaultWebResponse;
+import br.com.marcoshssilva.messagingpublisher.web.models.response.TypeDefaultWebResponseEnum;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,9 +26,9 @@ public class V1MessagingPublisher {
     public ResponseEntity<DefaultWebResponse> publishExchange(@RequestBody V1PublishExchangeDataModel data) {
         try {
             rabbitTemplate.convertAndSend(data.exchange(), data.routingKey(), data.base64());
-            return ResponseEntity.ok(new DefaultWebResponse(DEFAULT_SUCCESS_MESSAGE, "SUCCESS"));
+            return ResponseEntity.ok(new DefaultWebResponse(DEFAULT_SUCCESS_MESSAGE, TypeDefaultWebResponseEnum.SUCCESS));
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(new DefaultWebResponse(e.getMessage(), "ERROR"));
+            return ResponseEntity.internalServerError().body(new DefaultWebResponse(e.getMessage(), TypeDefaultWebResponseEnum.ERROR));
         }
 
     }
@@ -36,9 +37,9 @@ public class V1MessagingPublisher {
     public ResponseEntity<DefaultWebResponse> publishQueue(@RequestBody V1PublishDefaultExchangeDataModel data) {
         try {
             rabbitTemplate.convertAndSend(data.routingKey(), data.base64());
-            return ResponseEntity.ok(new DefaultWebResponse(DEFAULT_SUCCESS_MESSAGE, "SUCCESS"));
+            return ResponseEntity.ok(new DefaultWebResponse(DEFAULT_SUCCESS_MESSAGE, TypeDefaultWebResponseEnum.SUCCESS));
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(new DefaultWebResponse(e.getMessage(), "ERROR"));
+            return ResponseEntity.internalServerError().body(new DefaultWebResponse(e.getMessage(), TypeDefaultWebResponseEnum.ERROR));
         }
 
     }
