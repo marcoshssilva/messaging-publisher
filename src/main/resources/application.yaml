@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: messaging-publisher
+  rabbitmq:
+    username: admin
+    password: admin
+server:
+  servlet:
+    context-path: /messaging-publisher
+  port: 8080
+management:
+  server:
+    port: 8080
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    jmx:
+      exposure:
+        include: '*'
+logging:
+  level:
+    ROOT: info
