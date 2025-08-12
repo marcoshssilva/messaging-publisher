@@ -33,10 +33,10 @@ spring:
 server:
   servlet:
     context-path: /messaging-publisher
-  port: 8080
+  port: ${PORT:8080}
 management:
   server:
-    port: 8080
+    port: ${MANAGEMENT_PORT:8080}
   endpoints:
     web:
       exposure:
