@@ -6,27 +6,22 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity()
 public class AuthConfig {
 
     @Bean
-    public UserDetailsManager userDetailsManager(PasswordEncoder encoder) {
-        Collection<UserDetails> users = new HashSet<>();
-        users.add(new User("admin", encoder.encode("admin"), true, true, true, true, Collections.emptySet()));
-        return new InMemoryUserDetailsManager(users);
+    public UserDetailsManager userDetailsManager(DataSource dataSource) {
+        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
+        return userDetailsManager;
     }
 
     @Bean
