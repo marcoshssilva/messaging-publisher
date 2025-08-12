@@ -2,8 +2,11 @@ spring:
   application:
     name: messaging-publisher
   rabbitmq:
-    username: admin
-    password: admin
+    username: ${SPRING_RABBITMQ_VIRTUAL_USERNAME:guest}
+    password: ${SPRING_RABBITMQ_VIRTUAL_PASSWORD:guest}
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    virtual-host: ${SPRING_RABBITMQ_VIRTUAL_HOST:/}
+    port: ${SPRING_RABBITMQ_PORT:5672}
   session:
     store-type: none # jdbc - if enabled, don't forget to change SessionCreationPolicy in AuthConfig
     jdbc:
