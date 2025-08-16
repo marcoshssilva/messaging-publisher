@@ -1,5 +1,7 @@
 package br.com.marcoshssilva.messagingpublisher.web.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -18,6 +20,9 @@ import javax.sql.DataSource;
 @EnableWebSecurity()
 public class AuthConfig {
 
+    private static final Logger LOG = LoggerFactory.getLogger(AuthConfig.class);
+    private static final String[] CONTEXTS_ALLOWED_BY_ALL = new String[] { "/actuator/health/**", "/", "/index.html" };
+
     @Bean
     public UserDetailsManager userDetailsManager(DataSource dataSource) {
         JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
@@ -33,9 +38,13 @@ public class AuthConfig {
     public SecurityFilterChain chain1(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(csrf -> csrf.disable());
         httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        httpSecurity.authorizeHttpRequests(authorized -> authorized.anyRequest().authenticated());
         httpSecurity.httpBasic(Customizer.withDefaults());
+        httpSecurity.authorizeHttpRequests(authorized ->
+                authorized
+                        .requestMatchers(CONTEXTS_ALLOWED_BY_ALL).permitAll()
+                        .anyRequest().authenticated());
 
+        LOG.info("Spring Security configurado com sucesso!");
         return httpSecurity.getOrBuild();
     }
 
