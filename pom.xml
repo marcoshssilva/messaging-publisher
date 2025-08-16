@@ -12,7 +12,7 @@
 	<artifactId>messaging-publisher</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>messaging-publisher</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Simple Spring Boot App to publish in queues or exchanges using RabbitMQ.</description>
 	<url/>
 	<licenses>
 		<license/>
