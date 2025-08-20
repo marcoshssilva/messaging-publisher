@@ -1,6 +1,8 @@
 spring:
   application:
     name: messaging-publisher
+  config:
+    import: optional:configserver:${SPRING_CONFIG_SERVER_URI:http://127.0.0.1:8888}
   rabbitmq:
     username: ${SPRING_RABBITMQ_VIRTUAL_USERNAME:guest}
     password: ${SPRING_RABBITMQ_VIRTUAL_PASSWORD:guest}
