@@ -32,6 +32,10 @@ spring:
     show-sql: false
     properties:
       dialect: org.hibernate.dialect.PostgreSQLDialect
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URI:http://127.0.0.1:8761/eureka}
 server:
   servlet:
     context-path: /messaging-publisher
